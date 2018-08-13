@@ -17,17 +17,12 @@ class UsersController extends Controller
 
     private function getForm($model){
         $url = $model->id ? route("admin.users.update", $model) : route('admin.users.create');
-//        return $form = $this->plain([
-//            'url'       => $url,
-//            'method'    => 'POST',
-//            'model'     => $model
-//        ]);
-          $form = $this->form(UserForm::class,[
-              'url' => $url,
-              'method' => 'POST',
-              'model' => $model
-          ]);
-          return $form;
+        $form = $this->form(UserForm::class,[
+          'url' => $url,
+          'method' => 'POST',
+          'model' => $model
+        ]);
+        return $form;
     }
 
     public function getIndex(){
@@ -75,6 +70,13 @@ class UsersController extends Controller
 
         $user->fill($form->getFieldValues(TRUE));
         $user->save();
+
+        return redirect()->route('admin.users.list');
+    }
+
+    public function postDelete(User $user){
+
+        $user->delete();
 
         return redirect()->route('admin.users.list');
     }

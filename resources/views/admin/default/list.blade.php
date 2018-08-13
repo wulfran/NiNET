@@ -21,7 +21,7 @@
                     <td>{{ $user->account_type }}</td>
                     <td>
                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-remove"></i></a>
+                        <a href="{{ route('admin.users.delete', $user) }}" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-remove"></i></a>
                     </td>
                 </tr>
             @endforeach

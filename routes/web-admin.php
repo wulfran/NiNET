@@ -4,6 +4,7 @@
 
         $sections = [
             'users' => ['list', 'add', 'edit', 'delete'],
+            'companies' => ['list', 'add', 'edit', 'delete']
         ];
 
         foreach($sections as $section => $actions){
@@ -20,6 +21,9 @@
                     Route::post('{'.str_singular($section).'}/update', ['as' => 'update', 'uses' => 'Admin\\'.ucfirst($section).'Controller@postSave']);
                 } elseif(in_array('update', $actions)){
                     Route::post('/update', ['as' => 'update', 'uses' => 'Admin\\'.ucfirst($section).'Controller@postSave']);
+                }
+                if(in_array('delete', $actions)){
+                    Route::get('{'.str_singular($section).'}/delete', ['as' => 'delete', 'uses' => 'Admin\\'.ucfirst($section).'Controller@postDelete']);
                 }
             });
         }
