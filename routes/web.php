@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+include_once ('web-admin.php');
+
+Route::get('/home', 'HomeController@index')->name('home');
