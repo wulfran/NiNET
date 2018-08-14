@@ -28,7 +28,7 @@ class UsersController extends Controller
 
     protected function buildActions($model){
         $edit = '<a href="' . route('admin.users.edit', $model) . '" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i></a>';
-        $delete = '<a href="' . route('admin.users.delete', $model) . '" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-remove"></i></a>';
+        $delete = '<a style="margin-left:10px;" href="' . route('admin.users.delete', $model) . '" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-remove"></i></a>';
         return $edit . $delete;
     }
 
