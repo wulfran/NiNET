@@ -12,6 +12,8 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public $dates = ['created_at', 'updated_at', 'deleted_at'];
+
     const account_type = [
         'superuser' => 'SuperUser',
         'admin' => 'Administrator',
