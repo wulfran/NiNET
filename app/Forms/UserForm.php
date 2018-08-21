@@ -10,8 +10,8 @@ class UserForm extends Form
     public function buildForm()
     {
         $this->add('name', 'text', [
-        'label' => 'Nazwa użytkownika',
-        'Rules' => 'required'
+            'label' => 'Nazwa użytkownika',
+            'Rules' => 'required'
         ])
         ->add('email', 'email',[
             'label' => 'e-mail',

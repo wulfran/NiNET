@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Address;
-use App\Company;
 use App\Forms\UserForm;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Routing\Route;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
-use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {

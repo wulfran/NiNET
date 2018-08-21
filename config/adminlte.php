@@ -135,6 +135,22 @@ return [
                 ]
             ],
         ],
+        [
+            'text' => 'Kontrahenci',
+            'icon' => 'building',
+            'submenu' => [
+                [
+                    'text' => 'Lista',
+                    'route' => 'admin.companies.list',
+                    'icon' => 'list'
+                ],
+                [
+                    'text' => 'Dodaj',
+                    'route' => 'admin.companies.add',
+                    'icon' => 'plus'
+                ]
+            ],
+        ]
     ],
 
     /*
