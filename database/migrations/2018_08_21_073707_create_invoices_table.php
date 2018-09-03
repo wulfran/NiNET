@@ -17,7 +17,7 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->string('number');
             $table->integer('seller_id')->nullable();
-            $table->integer('company_id')->nullable();
+            $table->integer('buyer_id')->nullable();
             $table->double('value_netto');
             $table->double('value_vat')->nullable();
             $table->integer('vat_percentage')->nullable();
@@ -30,9 +30,11 @@ class CreateInvoicesTable extends Migration
             $table->text('comments')->nullable();
             $table->date('deleted_at')->nullable();
             $table->boolean('archive')->default('false');
+            $table->string('issued_by')->nullable();
+            $table->string('place')->nullable();
             $table->timestamps();
             $table->foreign('seller_id')->references('id')->on('companies')->onDelete('set null');
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null');
+            $table->foreign('buyer_id')->references('id')->on('companies')->onDelete('set null');
         });
     }
 

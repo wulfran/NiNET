@@ -150,7 +150,28 @@ return [
                     'icon' => 'plus'
                 ]
             ],
-        ]
+        ],
+        [
+            'text' => 'Faktury',
+            'icon' => 'money',
+            'submenu' => [
+                [
+                    'text' => 'Lista',
+                    'route' => 'admin.invoices.list',
+                    'icon' => 'list'
+                ],
+                [
+                    'text' => 'Archiwalne',
+                    'route' => 'admin.invoices.archive',
+                    'icon' => 'archive'
+                ],
+                [
+                    'text' => 'Wystaw',
+                    'route' => 'admin.invoices.add',
+                    'icon' => 'plus'
+                ]
+            ],
+        ],
     ],
 
     /*

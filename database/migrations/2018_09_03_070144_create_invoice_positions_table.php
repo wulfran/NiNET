@@ -26,7 +26,6 @@ class CreateInvoicePositionsTable extends Migration
             $table->double('value_vat');
             $table->double('value_brutto');
             $table->integer('vat_percentage')->nullable();
-            $table->timestamps();
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
