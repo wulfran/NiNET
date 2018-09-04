@@ -170,7 +170,61 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                tu będzie tabelka
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Lp.</th>
+                                        <th>Nazwa</th>
+                                        <th>Ilość</th>
+                                        <th>Jednostka</th>
+                                        <th>Cena netto</th>
+                                        <th>VAT %</th>
+                                        <th>Wartość VAT</th>
+                                        <th>Cena brutto</th>
+                                        <th>Wartość netto</th>
+                                        <th>Wartość brutto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <input class="form-control" type="text" id="name" name="name" required>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" min="1" id="quantity" onchange="calculateValues()">
+                                        </td>
+                                        <td>
+                                            <select name="unit" id="unit" disabled>
+                                                <option value="szt">szt.</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" id="price_netto" name="price_netto" step="0.01" onchange="calculateValues()">
+                                        </td>
+                                        <td>
+                                            <select name="vat" id="vat" onchange="calculateValues()">
+                                                <option value="0">0%</option>
+                                                <option value="8">8%</option>
+                                                <option value="22">22%</option>
+                                                <option value="23">23%</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" id="vat_value" step="0.01" disabled>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" id="price_brutto" step="0.01" disabled>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" id="value_netto" step="0.01" disabled>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" id="value_brutto" step="0.01" disabled>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -197,33 +251,94 @@
 
     {!! form_end($form) !!}
 
-
-    <div class="modal fade" id="add_company" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Dodaj firmę</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary">Zapisz</button>
+    {!! form_start($companyForm) !!}
+        <div class="modal fade" id="add_company" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Dodaj firmę</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {!! form_row($companyForm->name) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {!! form_row($companyForm->short_name) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! form_row($companyForm->email) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! form_row($companyForm->phone) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! form_row($companyForm->nip) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! form_row($companyForm->regon) !!}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-9">
+                                {!! form_row($companyForm->address->street_name) !!}
+                            </div>
+                            <div class="col-md-3">
+                                {!! form_row($companyForm->address->street_number) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {!! form_row($companyForm->address->post_code) !!}
+                            </div>
+                            <div class="col-md-9">
+                                {!! form_row($companyForm->address->city) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Zamknij</button>
+                        {!! form_row($companyForm->submit, ['attr' => ['width' => '50%']]) !!}
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+    <div id="remove">
+        {!! form_row($companyForm->phone_2) !!}
+        {!! form_row($companyForm->description) !!}
     </div>
+    {!! form_end($companyForm) !!}
 @stop
 
 @section('js')
     <script>
+        function calculateValues(){
+            let quantity = $("#quantity").val();
+            let price_netto = $("#price_netto").val();
+            let vat = $("#vat").val();
+            let vat_value;
+            let price_brutto;
+            if(quantity && price_netto){
+                vat_value = parseFloat(quantity) * parseFloat(vat);
+                price_brutto = parseFloat(price_netto) + parseFloat(vat_value);
+                console.log(vat_value);
+                console.log(price_brutto);
+            }
+        }
         function setCompanyType(type){
             console.log(type);
         }
+        $(document).ready(function () {
+            $("#remove").remove();
+        })
     </script>
 @stop

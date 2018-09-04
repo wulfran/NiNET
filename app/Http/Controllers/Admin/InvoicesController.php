@@ -70,11 +70,8 @@ class InvoicesController extends Controller
 
         $form = $this->getForm($invoice, InvoiceForm::class, 'invoices');
 
-        if(!$invoice->id || (!$invoice->seller_id || !$invoice->buyer_id)){
-            $company = new Company;
-            $companyForm = $this->getForm($company, CompanyForm::class, 'companies');
-        }
-
+        $company = new Company;
+        $companyForm = $this->getForm($company, CompanyForm::class, 'companies');
 
         return view('admin.invoices.edit', compact([
             'title', 'form', 'invoice', 'companyForm'
