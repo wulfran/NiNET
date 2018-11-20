@@ -56,11 +56,11 @@ class InvoiceForm extends Form
             ])
             ->add('sold_at', 'text',[
                 'label' => 'Data sprzedaży',
-                'value' => $this->getModel()->sold_at->toDateString()
+                'value' => ($this->getModel()->id ? $this->getModel()->sold_at->toDateString() : NULL)
             ])
             ->add('payment_date', 'text',[
                 'label' => 'Płatne do',
-                'value' => $this->getModel()->payment_date->toDateString()
+                'value' => ($this->getModel()->id ? $this->getModel()->payment_date->toDateString() : NULL)
             ])
             ->add('bank_account', 'number',[
                 'label' => 'Konto do płatności',

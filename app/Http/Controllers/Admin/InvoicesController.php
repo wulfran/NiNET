@@ -65,6 +65,11 @@ class InvoicesController extends Controller
         ]));
     }
 
+    public function getAdd(){
+        $invoice = new Invoice;
+        return $this->getEdit($invoice);
+    }
+
     public function getEdit(Invoice $invoice){
         $title = ($invoice->id ? 'Edycja' : 'Dodawanie') . ' faktury';
 

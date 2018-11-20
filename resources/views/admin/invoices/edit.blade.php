@@ -185,25 +185,25 @@
                                         <th>Wartość brutto</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
+                                    <tbody id="table_body">
+                                    <tr id="first_row">
+                                        <td id="lp">1</td>
                                         <td>
-                                            <input class="form-control" type="text" id="name" name="name" required>
+                                            <input class="form-control" type="text" id="name[]" name="name" required>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" min="1" id="quantity" onchange="calculateValues()">
+                                            <input class="form-control" type="number" min="1" id="quantity[]" onchange="calculateValues()">
                                         </td>
                                         <td>
-                                            <select name="unit" id="unit" disabled>
+                                            <select name="unit" id="unit[]" disabled>
                                                 <option value="szt">szt.</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" id="price_netto" name="price_netto" step="0.01" onchange="calculateValues()">
+                                            <input class="form-control" type="number" id="price_netto[]" name="price_netto" step="0.01" onchange="calculateValues()">
                                         </td>
                                         <td>
-                                            <select name="vat" id="vat" onchange="calculateValues()">
+                                            <select name="vat" id="vat[]" onchange="calculateValues()">
                                                 <option value="0">0%</option>
                                                 <option value="8">8%</option>
                                                 <option value="22">22%</option>
@@ -211,20 +211,22 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" id="vat_value" step="0.01" disabled>
+                                            <input class="form-control" type="number" id="vat_value[]" step="0.01" disabled>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" id="price_brutto" step="0.01" disabled>
+                                            <input class="form-control" type="number" id="price_brutto[]" step="0.01" disabled>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" id="value_netto" step="0.01" disabled>
+                                            <input class="form-control" type="number" id="value_netto[]" step="0.01" disabled>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" id="value_brutto" step="0.01" disabled>
+                                            <input class="form-control" type="number" id="value_brutto[]" step="0.01" disabled>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <span onclick="addRow()" class="btn btn-primary btn-md">Dodaj pozycję</span>
+
                             </div>
                         </div>
                     </div>
@@ -339,6 +341,6 @@
         }
         $(document).ready(function () {
             $("#remove").remove();
-        })
+        });
     </script>
 @stop
