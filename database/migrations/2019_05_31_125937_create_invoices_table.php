@@ -16,8 +16,19 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('number');
-            $table->integer('seller_id')->nullable();
-            $table->integer('buyer_id')->nullable();
+            $table->integer('seller_id')
+                ->nullable()
+                ->foreign('seller_id', 'invoices_ibkf_1')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('set null');
+            $table->integer('buyer_id')
+                ->nullable()
+                ->foreign('buyer_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('set null')
+                ;
             $table->double('value_netto');
             $table->double('value_vat')->nullable();
             $table->integer('vat_percentage')->nullable();
@@ -29,12 +40,10 @@ class CreateInvoicesTable extends Migration
             $table->string('payment_method')->nullable();
             $table->text('comments')->nullable();
             $table->date('deleted_at')->nullable();
-            $table->boolean('archive')->default('false');
+            $table->boolean('archive')->default(false);
             $table->string('issued_by')->nullable();
             $table->string('place')->nullable();
             $table->timestamps();
-            $table->foreign('seller_id')->references('id')->on('companies')->onDelete('set null');
-            $table->foreign('buyer_id')->references('id')->on('companies')->onDelete('set null');
         });
     }
 

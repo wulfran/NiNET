@@ -15,10 +15,19 @@ class CreateCompaniesAddressesTable extends Migration
     {
         Schema::create('companies_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('address_id');
-            $table->foreign('company_id', 'ibfk_company_addresses_1')->references('id')->on('companies');
-            $table->foreign('address_id', 'ibfk_company_addresses_2')->references('id')->on('addresses');
+            $table->integer('company_id')
+                ->foreign('company_id', 'ibfk_company_addresses_1')
+                ->references('id')
+                ->on('companies')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->integer('address_id')
+                ->foreign('address_id', 'ibfk_company_addresses_2')
+                ->references('id')
+                ->on('addresses')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->boolean('type')->default(1);
         });
     }
 

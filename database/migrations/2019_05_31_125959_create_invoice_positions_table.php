@@ -15,7 +15,12 @@ class CreateInvoicePositionsTable extends Migration
     {
         Schema::create('invoice_positions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('invoice_id');
+            $table->integer('invoice_id')
+                ->foreign('invoice_id')
+                ->references('id')
+                ->on('invoices')
+                ->onUpdate('RESTRICT')
+                ->onDelete('cascade');
             $table->string('name');
             $table->double('price_netto');
             $table->double('price_vat')->nullable();
@@ -26,7 +31,6 @@ class CreateInvoicePositionsTable extends Migration
             $table->double('value_vat');
             $table->double('value_brutto');
             $table->integer('vat_percentage')->nullable();
-            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
 

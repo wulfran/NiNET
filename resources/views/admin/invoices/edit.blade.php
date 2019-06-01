@@ -170,63 +170,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Lp.</th>
-                                        <th>Nazwa</th>
-                                        <th>Ilość</th>
-                                        <th>Jednostka</th>
-                                        <th>Cena netto</th>
-                                        <th>VAT %</th>
-                                        <th>Wartość VAT</th>
-                                        <th>Cena brutto</th>
-                                        <th>Wartość netto</th>
-                                        <th>Wartość brutto</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="table_body">
-                                    <tr id="first_row">
-                                        <td id="lp">1</td>
-                                        <td>
-                                            <input class="form-control" type="text" id="name[]" name="name" required>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" min="1" id="quantity[]" onchange="calculateValues()">
-                                        </td>
-                                        <td>
-                                            <select name="unit" id="unit[]" disabled>
-                                                <option value="szt">szt.</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" id="price_netto[]" name="price_netto" step="0.01" onchange="calculateValues()">
-                                        </td>
-                                        <td>
-                                            <select name="vat" id="vat[]" onchange="calculateValues()">
-                                                <option value="0">0%</option>
-                                                <option value="8">8%</option>
-                                                <option value="22">22%</option>
-                                                <option value="23">23%</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" id="vat_value[]" step="0.01" disabled>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" id="price_brutto[]" step="0.01" disabled>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" id="value_netto[]" step="0.01" disabled>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="number" id="value_brutto[]" step="0.01" disabled>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <span onclick="addRow()" class="btn btn-primary btn-md">Dodaj pozycję</span>
-
+                                <div class="v-app">
+                                    <fieldset>
+                                        <legend>Pozycje na fakturze</legend>
+                                        <invoice-table :rows='@json($invoice->rows)'></invoice-table>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -322,6 +271,56 @@
 @stop
 
 @section('js')
+    <script id="invoice-table" type="template">
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th style="width: 40px;"></th>
+                    <th>Nazwa towaru lub usługi</th>
+                    <th style="width: 100px;">Ilość</th>
+                    <th style="width: 150px;">Jednostka</th>
+                    <th style="width: 150px;">Cena jedn. brutto</th>
+                    <th style="width: 150px;">VAT</th>
+                    <th style="width: 40px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(row, index) in localRows">
+                    <td>@{{ index+1 }}.</td>
+                    <td>
+                        <input required v-model="row.name" :name="'rows['+index+'][name]'" class="form-control"/>
+                    </td>
+                    <td><input required type="number" v-model="row.quantity"
+                               :name="'rows['+index+'][quantity]'" class="form-control"/></td>
+                    <td><input required v-model="row.unit" :name="'rows['+index+'][unit]'"
+                               class="form-control"/></td>
+                    <td><input required type="number" v-model="row.price"
+                               :name="'rows['+index+'][price]'" class="form-control"/></td>
+                    <td>
+                        <select required class="form-control" v-model="row.vat" :name="'rows['+index+'][vat]'">
+                            <option value="23">23%</option>
+                            <option value="8">8%</option>
+                            <option value="5">5%</option>
+                            <option value="0">0%</option>
+                            <option value="zw.">zw.</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a @click="removeRow(index)"
+                           class="btn btn-danger btn-sm"><i title="Usuń pozycje"
+                                                            class="fa fa-remove"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button @click.prevent="addRow" class="btn btn-primary"><i class="fa fa-plus"></i> Dodaj
+                pozycje
+            </button>
+        </div>
+    </script>
+
+
     <script>
         function calculateValues(){
             let quantity = $("#quantity").val();
