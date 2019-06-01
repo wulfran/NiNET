@@ -4,7 +4,8 @@
 
         $sections = [
             'users' => ['list', 'add', 'edit', 'delete'],
-            'companies' => ['list', 'add', 'edit', 'delete']
+            'companies' => ['list', 'add', 'edit', 'delete'],
+            'invoices' => ['list', 'archive', 'add', 'edit', 'delete']
         ];
 
         foreach($sections as $section => $actions){
@@ -24,6 +25,9 @@
                 }
                 if(in_array('delete', $actions)){
                     Route::get('{'.str_singular($section).'}/delete', ['as' => 'delete', 'uses' => 'Admin\\'.ucfirst($section).'Controller@postDelete']);
+                }
+                if(in_array('archive', $actions)){
+                    Route::get('archive', ['as' => 'archive', 'uses' => 'Admin\\'.ucfirst($section). 'Controller@getArchive']);
                 }
             });
         }

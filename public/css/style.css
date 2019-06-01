@@ -1,0 +1,18 @@
+/*Admin panel*/
+.returned_positive{
+    color: white;
+    border: 1px solid limegreen;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    background-color: limegreen;
+    text-align: center;
+}
+.returned_negative{
+    color: white;
+    font-weight: bold;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    background-color: red;
+    text-align: center;
+}

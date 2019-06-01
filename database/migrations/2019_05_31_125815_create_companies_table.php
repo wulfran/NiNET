@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCompanyTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class AddCompanyTable extends Migration
             $table->integer('phone')->nullable();
             $table->integer('phone_2')->nullable();
             $table->text('description', 1000)->nullable();
-            $table->integer('address_id');
+            $table->date('deleted_at')->nullable();
 
             $table->timestamps();
         });
