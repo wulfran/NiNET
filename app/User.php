@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Timer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,5 +46,19 @@ class User extends Authenticatable
 
     public function company(){
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function timers()
+    {
+        return $this->hasMany(Timer::class);
+    }
+
+    public function hasActiveTimers()
+    {
+        if($this->timers && $this->timers->last()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

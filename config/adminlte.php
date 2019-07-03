@@ -110,18 +110,23 @@ return [
     'menu' => [
         'MENU',
         [
-            'text'        => 'Strona startowa',
-            'url'         => '/home',
-            'icon'        => 'home',
+            'text' => 'Strona startowa',
+            'url' => '/home',
+            'icon' => 'home',
         ],
         [
-            'text'  => 'Powrót do serwisu',
-            'url'   => '/',
+            'text' => 'Timer',
+            'icon' => 'hourglass',
+//            'route' => 'admin.timers.toggle',
+        ],
+        [
+            'text' => 'Powrót do serwisu',
+            'url' => '/',
         ],
         'USTAWIENIA',
         [
-            'text'    => 'Użytkownicy',
-            'icon'    => 'users',
+            'text' => 'Użytkownicy',
+            'icon' => 'users',
             'submenu' => [
                 [
                     'text' => 'Lista',
@@ -172,6 +177,21 @@ return [
                 ]
             ],
         ],
+        [
+            'text' => 'Czasy',
+            'icon' => 'time',
+            'submenu' => [
+                [
+                    'text' => 'Lista',
+                    'route' => 'admin.timers.list',
+                    'icon' => 'list'
+                ],
+                [
+                    'text' => 'Zestawienie',
+                    'route' => 'admin.timers.print'
+                ]
+            ]
+        ],
     ],
 
     /*
@@ -207,7 +227,7 @@ return [
 
     'plugins' => [
         'datatables' => true,
-        'select2'    => true,
-        'chartjs'    => true,
+        'select2' => true,
+        'chartjs' => true,
     ],
 ];

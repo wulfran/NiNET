@@ -19,6 +19,7 @@ class UsersController extends Controller
           'method' => 'POST',
           'model' => $model
         ]);
+
         return $form;
     }
 

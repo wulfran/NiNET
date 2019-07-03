@@ -5,7 +5,8 @@
         $sections = [
             'users' => ['list', 'add', 'edit', 'delete'],
             'companies' => ['list', 'add', 'edit', 'delete'],
-            'invoices' => ['list', 'archive', 'add', 'edit', 'delete']
+            'invoices' => ['list', 'archive', 'add', 'edit', 'delete'],
+            'timers' => ['list', 'delete', 'edit']
         ];
 
         foreach($sections as $section => $actions){
@@ -31,4 +32,7 @@
                 }
             });
         }
+        Route::any('timers/toggle', ['as' => 'timers.toggle', 'uses' => 'Admin\TimersController@toggle']);
+        Route::post('timers/process', ['as' => 'timers.process', 'uses' => 'Admin\TimersController@postProcess']);
+        Route::get('timers/print', ['as' => 'timers.print', 'uses' => 'Admin\TimersController@printTimers']);
     });

@@ -124,6 +124,30 @@
             <!-- /.container -->
             @endif
         </div>
+        <div class="modal fade" id="timer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    @if(auth()->user()->hasActiveTimers())
+                        <form action="{{ route('admin.timers.process') }}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+                                <textarea name="notes" id="notes" cols="30" rows="10" style="width:100%"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-md btn-primary">Zapisz</button>
+                            </div>
+                        </form>
+                    @else
+                    <div class="modal-body" style="text-align: center">
+                        <form action="{{ route('admin.timers.toggle') }}" method="POST">
+                            {{ csrf_field() }}
+                            <button class="btn btn-md btn-info">Uruchom</button>
+                        </form>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
         <!-- /.content-wrapper -->
 
     </div>
