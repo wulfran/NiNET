@@ -24,7 +24,7 @@ add('writable_dirs', []);
 
 host('51.38.130.55')
     ->user('ninet')
-    ->set('deploy_path', '/var/www/')
+    ->set('deploy_path', '~/domains/{{application}}')
     ->set('composer_options', 'install --verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction')
     ->set('writable_mode', 'chmod')
     ->set('bin/composer', function () {
@@ -42,7 +42,7 @@ after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
-//before('deploy:symlink', 'artisan:migrate');
+before('deploy:symlink', 'artisan:migrate');
 
 task('test', function (){
     $result = run('pwd');
